@@ -21,7 +21,7 @@ interface User {
     last_name: string
     cpf: string
     cellphone: string
-    // date_birth: string
+    date_birth: string
     // admin_auth: boolean
 }
 

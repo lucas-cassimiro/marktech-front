@@ -18,7 +18,7 @@ export default function Home() {
           <div className='w-[300px] h-[200px] bg-[#EF5753] rounded-md text-white flex flex-col p-6'>
             <span>Mercados</span>
             <p>Pet Shop, Farmácia, Empório, Hortifruti, Açougue...</p>
-            <button type='button' className='bg-white p-2 border-0 rounded-lg text-[#FA1D2C] font-medium self-end'>Cadastrar agora</button>
+            <button type='button' className='bg-white p-2 border-0 rounded-lg text-[#FA1D2C] font-medium self-end mt-6'>Cadastrar agora</button>
           </div>
         </div>
       </section>

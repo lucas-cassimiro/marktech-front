@@ -15,12 +15,7 @@ import { useAuth } from '@/hooks/use-auth'
 import UserModal from './user-modal'
 
 export default function Header({ navigation }: NavTypes) {
-    const [log, setLog] = useState<boolean>(false)
-    const [showLoginOptions, setShowLoginOptions] = useState<boolean>(false);
-
     const { cart } = useCart()
-    const { user } = useAuth()
-
 
     const icons = [
         { icon: <FaLinkedin size='1.5rem' /> },

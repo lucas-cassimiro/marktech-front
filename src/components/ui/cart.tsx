@@ -13,7 +13,7 @@ export default function Cart() {
     const { cart, productCartDecrement, productCartIncrement, removeProductFromCart } = useCart()
 
     return (
-        <section className='w-[70%] m-auto bg-[#0C0D0F] text-white rounded-lg'>
+        <section className='w-[70%] m-auto bg-[#0C0D0F] text-white rounded-lg p-10'>
             <table className="w-full border-collapse border-spacing-0 text-white">
                 <thead>
                     <tr>

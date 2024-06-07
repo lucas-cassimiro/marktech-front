@@ -1,9 +1,10 @@
 'use client'
 
-import { useAuth } from "@/hooks/use-auth"
-import Link from "next/link"
-import { useState } from "react"
-import { CiUser } from "react-icons/ci"
+import { useState } from 'react'
+import Link from 'next/link'
+
+import { useAuth } from '@/hooks/use-auth'
+import { UserLogged } from './user-logged'
 
 export default function UserModal() {
     const [log, setLog] = useState<boolean>(false)
@@ -35,9 +36,7 @@ export default function UserModal() {
                 </li>
             )}
 
-            {user && <div className='flex flex-col items-center'>
-                <CiUser size='1.75rem' className='cursor-pointer' />
-            </div>}
+            {user && <UserLogged />}
         </>
     )
 }

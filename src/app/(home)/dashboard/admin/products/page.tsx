@@ -55,23 +55,22 @@ export default function Products() {
     const onSubmit: SubmitHandler<ProductSchema> = async (
         data: ProductSchema
     ) => {
-        console.log(data);
+        console.log(data)
 
         try {
-            const formData = new FormData();
+            const formData = new FormData()
 
-            // Adiciona os valores do formulário ao FormData
-            formData.append('name', data.name);
-            formData.append('price', String(data.price));
-            formData.append('highlight', String(data.highlight));
-            formData.append('discount', String(data.discount));
-            formData.append('description', data.description);
-            formData.append('categorie_id', String(data.categorie_id));
-            formData.append('ean', data.ean);
+            formData.append('name', data.name)
+            formData.append('price', String(data.price))
+            formData.append('highlight', String(data.highlight))
+            formData.append('discount', String(data.discount))
+            formData.append('description', data.description)
+            formData.append('categorie_id', String(data.categorie_id))
+            formData.append('ean', data.ean)
 
             // Adiciona o arquivo ao FormData
             if (data.file) {
-                formData.append('file', data.file[0]); // Aqui assumimos que o arquivo é o primeiro da lista (caso de múltiplos arquivos)
+                formData.append('file', data.file[0])
             }
 
             console.log(formData)
@@ -81,24 +80,24 @@ export default function Products() {
             const request = await fetch(url, {
                 method: 'POST',
                 body: formData,
-            });
+            })
 
             if (!request.ok) {
-                const errorResponse = await request.json();
+                const errorResponse = await request.json()
                 toast.error(errorResponse.message)
-                throw new Error(errorResponse.message);
+                throw new Error(errorResponse.message)
             }
 
-            const response = await request.json();
+            const response = await request.json()
             toast.success(response.message)
 
-            reset();
+            reset()
         } catch (error) {
-            console.error("Error during fetch:", error);
+            console.error("Error during fetch:", error)
         }
-    };
+    }
 
-    const onError: SubmitErrorHandler<ProductSchema> = (errors) => console.log(errors);
+    const onError: SubmitErrorHandler<ProductSchema> = (errors) => console.log(errors)
 
     return (
         <form
