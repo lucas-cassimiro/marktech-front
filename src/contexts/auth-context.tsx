@@ -14,17 +14,6 @@ import { useRouter } from 'next/navigation'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import { FormData } from '@/app/(home)/login/cliente/page'
 
-interface User {
-    id: number
-    email: string
-    first_name: string
-    last_name: string
-    cpf: string
-    cellphone: string
-    date_birth: string
-    // admin_auth: boolean
-}
-
 interface AuthContextType {
     isAuthenticated: boolean
     user: any | null
@@ -113,7 +102,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setCookie(response, 'marktech.token.partner', response.token, {
                 maxAge: 60 * 60 * 1
             })
-            setUserPartner(response.user)
+            setUser(response.user)
             router.push('/')
             return response
         } catch (error) {

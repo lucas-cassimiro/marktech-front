@@ -66,7 +66,7 @@ export const UserLogged = () => {
                         >
                             Meus pedidos
                         </Link>
-                        {userPartner && (
+                        {!user.cpf && (
                             <Link
                                 href='/dashboard/admin/products'
                                 onClick={toggleModalUser}
