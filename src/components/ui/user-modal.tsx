@@ -10,7 +10,7 @@ export default function UserModal() {
     const [log, setLog] = useState<boolean>(false)
     const [showLoginOptions, setShowLoginOptions] = useState<boolean>(false)
 
-    const { user } = useAuth()
+    const { user, userPartner } = useAuth()
 
     const openModal = () => {
         setLog(true)

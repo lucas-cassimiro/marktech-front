@@ -7,6 +7,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from "react-toastify";
+import Permissions from "@/components/permissions";
 
 async function getCategories() {
     const response = await fetch('http://localhost:3333/categories')
@@ -100,129 +101,131 @@ export default function Products() {
     const onError: SubmitErrorHandler<ProductSchema> = (errors) => console.log(errors)
 
     return (
-        <form
-            method='POST'
-            action='http://localhost:3333/products/'
-            onSubmit={handleSubmit(onSubmit, onError)}
-            encType="multipart/form-data"
-            className="flex flex-col items-center gap-2 py-5 px-10"
-        >
-            <h1 className="text-center text-2xl">Cadastro de produtos</h1>
-            <div className="flex gap-14 justify-center items-center mt-16">
-                <div className="flex flex-col gap-2">
-                    <Input
-                        type="text"
-                        label="Nome"
-                        maxLength={100}
-                        isRequired
-                        isClearable
-                        className="w-[250px]"
-                        {...register("name")}
-                        isInvalid={errors?.name && true}
-                        color={errors?.name ? "danger" : "default"}
-                        errorMessage={errors?.name && errors.name.message}
-                    />
-
-                    <Input
-                        type="text"
-                        label="Preço"
-                        startContent={
-                            <div className="pointer-events-none flex items-center">
-                                <span className="text-default-400 text-small">R$</span>
-                            </div>
-                        }
-                        isRequired
-                        className="w-[250px]"
-                        {...register("price")}
-                        isInvalid={errors?.price && true}
-                        color={errors?.price ? "danger" : "default"}
-                        errorMessage={errors?.price && errors?.price?.message}
-                    />
-
-                    <input
-                        type="file"
-                        name="file"
-                        onChange={(e) => setValue("file", e.target.files)}
-                    />
-
-                    <label>
-                        <input
-                            id="highlight"
-                            type="checkbox"
-                            {...register("highlight")}
-                        />
-                        Destaque
-                    </label>
-                </div>
-                <div className="flex flex-col gap-2">
-                    <Input
-                        id="discount"
-                        type="number"
-                        label="Desconto"
-                        className="w-[250px]"
-                        startContent={
-                            <div className="pointer-events-none flex items-center">
-                                <span className="text-default-400 text-small">%</span>
-                            </div>
-                        }
-                        {...register("discount")}
-                        isInvalid={errors?.discount && true}
-                        color={errors?.discount ? "danger" : "default"}
-                        errorMessage={errors?.discount && errors?.discount?.message}
-                    />
-
-                    <Input
-                        id="description"
-                        type="text"
-                        label="Descrição"
-                        isRequired
-                        className="w-[250px]"
-                        {...register("description")}
-                        isInvalid={errors?.description && true}
-                        color={errors?.description ? "danger" : "default"}
-                        errorMessage={
-                            errors?.description && errors?.description?.message
-                        }
-                    />
-
-                    <Select
-                        label="Categoria"
-                        isRequired
-                        className="w-[250px]"
-                        {...register("categorie_id")}
-                    >
-                        {categories.map((categorie: any) => (
-                            <SelectItem
-                                key={categorie.id}
-                                value={categorie.id}
-                                {...register("categorie_id")}
-                            >
-                                {categorie.name}
-                            </SelectItem>
-                        ))}
-                    </Select>
-                    <Input
-                        id="ean"
-                        type="text"
-                        label="EAN"
-                        maxLength={13}
-                        isRequired
-                        className="w-[250px]"
-                        {...register("ean")}
-                        isInvalid={errors?.ean && true}
-                        color={errors?.ean ? "danger" : "default"}
-                        errorMessage={errors?.ean && errors?.ean?.message}
-                    />
-                </div>
-            </div>
-            <Button
-                type='submit'
-                isLoading={isSubmitting}
-                color="primary"
-                className="mt-10"
+        <Permissions>
+            <form
+                method='POST'
+                action='http://localhost:3333/products/'
+                onSubmit={handleSubmit(onSubmit, onError)}
+                encType="multipart/form-data"
+                className="flex flex-col items-center gap-2 py-5 px-10"
             >
-                Cadastrar
-            </Button>
-        </form>
+                <h1 className="text-center text-2xl">Cadastro de produtos</h1>
+                <div className="flex gap-14 justify-center items-center mt-16">
+                    <div className="flex flex-col gap-2">
+                        <Input
+                            type="text"
+                            label="Nome"
+                            maxLength={100}
+                            isRequired
+                            isClearable
+                            className="w-[250px]"
+                            {...register("name")}
+                            isInvalid={errors?.name && true}
+                            color={errors?.name ? "danger" : "default"}
+                            errorMessage={errors?.name && errors.name.message}
+                        />
+
+                        <Input
+                            type="text"
+                            label="Preço"
+                            startContent={
+                                <div className="pointer-events-none flex items-center">
+                                    <span className="text-default-400 text-small">R$</span>
+                                </div>
+                            }
+                            isRequired
+                            className="w-[250px]"
+                            {...register("price")}
+                            isInvalid={errors?.price && true}
+                            color={errors?.price ? "danger" : "default"}
+                            errorMessage={errors?.price && errors?.price?.message}
+                        />
+
+                        <input
+                            type="file"
+                            name="file"
+                            onChange={(e) => setValue("file", e.target.files)}
+                        />
+
+                        <label>
+                            <input
+                                id="highlight"
+                                type="checkbox"
+                                {...register("highlight")}
+                            />
+                            Destaque
+                        </label>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <Input
+                            id="discount"
+                            type="number"
+                            label="Desconto"
+                            className="w-[250px]"
+                            startContent={
+                                <div className="pointer-events-none flex items-center">
+                                    <span className="text-default-400 text-small">%</span>
+                                </div>
+                            }
+                            {...register("discount")}
+                            isInvalid={errors?.discount && true}
+                            color={errors?.discount ? "danger" : "default"}
+                            errorMessage={errors?.discount && errors?.discount?.message}
+                        />
+
+                        <Input
+                            id="description"
+                            type="text"
+                            label="Descrição"
+                            isRequired
+                            className="w-[250px]"
+                            {...register("description")}
+                            isInvalid={errors?.description && true}
+                            color={errors?.description ? "danger" : "default"}
+                            errorMessage={
+                                errors?.description && errors?.description?.message
+                            }
+                        />
+
+                        <Select
+                            label="Categoria"
+                            isRequired
+                            className="w-[250px]"
+                            {...register("categorie_id")}
+                        >
+                            {categories.map((categorie: any) => (
+                                <SelectItem
+                                    key={categorie.id}
+                                    value={categorie.id}
+                                    {...register("categorie_id")}
+                                >
+                                    {categorie.name}
+                                </SelectItem>
+                            ))}
+                        </Select>
+                        <Input
+                            id="ean"
+                            type="text"
+                            label="EAN"
+                            maxLength={13}
+                            isRequired
+                            className="w-[250px]"
+                            {...register("ean")}
+                            isInvalid={errors?.ean && true}
+                            color={errors?.ean ? "danger" : "default"}
+                            errorMessage={errors?.ean && errors?.ean?.message}
+                        />
+                    </div>
+                </div>
+                <Button
+                    type='submit'
+                    isLoading={isSubmitting}
+                    color="primary"
+                    className="mt-10"
+                >
+                    Cadastrar
+                </Button>
+            </form>
+        </Permissions>
     )
 }

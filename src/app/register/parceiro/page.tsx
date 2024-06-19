@@ -10,6 +10,7 @@ import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const signUpFormSchema = z.object({
     corporate_reason: z.string().nonempty('Campo obrigatório.'),
@@ -35,6 +36,8 @@ export default function Partner() {
         resolver: zodResolver(signUpFormSchema)
     })
 
+    const router = useRouter()
+
     const onSubmit: SubmitHandler<signUpFormData> = async (
         data: signUpFormData
     ) => {
@@ -59,11 +62,13 @@ export default function Partner() {
                 setError("email", { type: "manual", message: errorResponse.message });
             }
 
-            const response = await request.json();
-            console.log(response);
+            const response = await request.json()
+            console.log(response)
             toast.success(response.message)
 
-            reset();
+            reset()
+
+            router.push('/login/parceiro')
         } catch (error) {
             console.error("Error during fetch:", error);
         }

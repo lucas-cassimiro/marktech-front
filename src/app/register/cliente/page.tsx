@@ -9,6 +9,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 
 const signUpFormSchema = z.object({
     first_name: z.string().nonempty('Campo obrigatório.'),
@@ -34,6 +35,8 @@ export default function Client() {
         mode: 'onBlur',
         resolver: zodResolver(signUpFormSchema)
     })
+
+    const router = useRouter()
 
     const onSubmit: SubmitHandler<signUpFormData> = async (
         data: signUpFormData
@@ -64,6 +67,8 @@ export default function Client() {
             toast.success(response.message)
 
             reset();
+
+            router.push('/login/cliente')
         } catch (error) {
             console.error("Error during fetch:", error);
         }

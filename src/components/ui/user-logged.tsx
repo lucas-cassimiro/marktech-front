@@ -10,7 +10,7 @@ import { FaUserCircle } from 'react-icons/fa'
 
 export const UserLogged = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const { user, signOut } = useAuth()
+    const { user, userPartner, signOut } = useAuth()
 
     const toggleModalUser = () => setIsOpen(!isOpen)
 
@@ -18,7 +18,8 @@ export const UserLogged = () => {
         <section>
             <div className='flex flex-col items-center cursor-pointer' onClick={toggleModalUser}>
                 <CiUser size='1.75rem' />
-                <span>{user?.first_name}</span>
+                {user && <span>{user?.first_name}</span>}
+                {userPartner && <span>{userPartner?.corporate_reason}</span>}
             </div>
 
             <div
@@ -34,9 +35,14 @@ export const UserLogged = () => {
                     <div className="w-full h-20 bg-black flex justify-between items-center px-6 min-w-[350px] tablet:min-w-[250px]">
                         <div className="flex items-center gap-3">
                             <FaUserCircle className="text-white h-7 w-7" />
-                            <span className="text-white text-xl font-semibold tablet:text-base">
+                            {user && <span className="text-white text-xl font-semibold tablet:text-base">
                                 Olá, {user?.first_name}
-                            </span>
+                            </span>}
+
+                            {userPartner && <span className="text-white text-xl font-semibold tablet:text-base">
+                                Olá, {userPartner.corporate_reason}
+                            </span>}
+
                         </div>
                         <span
                             className="text-white font-semibold leading-3 tablet:text-sm cursor-pointer underline"
@@ -60,13 +66,15 @@ export const UserLogged = () => {
                         >
                             Meus pedidos
                         </Link>
-                        <Link
-                            href='/dashboard/admin/products'
-                            onClick={toggleModalUser}
-                            className='hover:underline'
-                        >
-                            Painel de Administrador
-                        </Link>
+                        {userPartner && (
+                            <Link
+                                href='/dashboard/admin/products'
+                                onClick={toggleModalUser}
+                                className='hover:underline'
+                            >
+                                Painel de Administrador
+                            </Link>
+                        )}
                     </div>
                 </section>
             </div>

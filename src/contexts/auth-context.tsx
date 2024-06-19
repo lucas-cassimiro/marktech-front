@@ -27,7 +27,8 @@ interface User {
 
 interface AuthContextType {
     isAuthenticated: boolean
-    user: User | null
+    user: any | null
+    userPartner: any | null
     userSignIn: (data: FormData) => Promise<void>
     partnerSignIn: (data: FormData) => Promise<void>
     signOut: () => void
@@ -36,7 +37,8 @@ interface AuthContextType {
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<any | null>(null)
+    const [userPartner, setUserPartner] = useState<any | null>(null)
 
     const isAuthenticated = !!user
     const router = useRouter()
@@ -108,10 +110,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             const response = await request.json()
 
-            setCookie(response, 'marktech.token', response.token, {
+            setCookie(response, 'marktech.token.partner', response.token, {
                 maxAge: 60 * 60 * 1
             })
-            setUser(response.user)
+            setUserPartner(response.user)
             router.push('/')
             return response
         } catch (error) {
@@ -121,7 +123,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const signOut = useCallback(() => {
         destroyCookie(null, 'marktech.token')
+        destroyCookie(null, 'marktech.token.partner')
         setUser(null)
+        setUserPartner(null)
 
         router.push('/')
         window.location.reload()
@@ -134,7 +138,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 userSignIn,
                 partnerSignIn,
                 signOut,
-                user
+                user,
+                userPartner
             }}
         >
             {children}
