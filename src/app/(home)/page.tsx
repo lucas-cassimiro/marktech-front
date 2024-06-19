@@ -11,8 +11,14 @@ export default function Home() {
         <section className='flex flex-col'>
           <span className='text-center text-3xl mb-10'>Você é nosso cliente ou parceiro?</span>
           <div className='flex gap-10 justify-center'>
-            <Link href='/register/parceiro' className='text-blue-500 text-xl'>Sou parceiro</Link>
-            <Link href='/register/cliente' className='text-blue-500 text-xl'>Sou cliente</Link>
+            <div className='bg-blue-500 w-[350px] h-[250px] border rounded-lg flex flex-col p-6 justify-between'>
+              <span className='text-xl'>Gostaria de trabalhar conosco? Cadastre-se na plataforma e anuncie seus produtos!</span>
+              <Link href='/register/parceiro' className='text-black text-xl'>Sou parceiro</Link>
+            </div>
+            <div className='bg-blue-500 w-[350px] h-[250px] border rounded-lg flex flex-col p-6 justify-between'>
+              <span className='text-xl'>Gostaria de comprar algum produto? Cadastre-se na plataforma e compre o quanto quiser!</span>
+              <Link href='/register/cliente' className='text-black text-xl'>Sou cliente</Link>
+            </div>
           </div>
         </section>
       </section>
